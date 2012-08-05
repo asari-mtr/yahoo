@@ -2,8 +2,10 @@
 
 @main("Welcome to Play 2.0") {
     
+    <ul>
     @for(item <- items) {
-        @item.title
+        <li><a href="@item.link">@item.title</a></li>
     }
+    </ul>
 
 }
