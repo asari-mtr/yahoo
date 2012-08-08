@@ -17,14 +17,8 @@ object Application extends Controller {
   }
 
   def read = Action {
-    Async {
-      WS.url("http://rss.dailynews.yahoo.co.jp/fc/rss.xml").get().map { response =>
-        val item = Rss.getYahoo(response.body)
-        Ok(toJson(
-            Map("status" -> "OK", "message" -> response.body.toString)
-        ))
-      }
-    }
+    val items = Rss.get
+    Ok(toJson(Map("items" -> toJson(items.map(i => Map("title" -> i.title, "link" -> i.link))))))
   }
   
 }
